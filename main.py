@@ -115,8 +115,10 @@ def generar_respuesta_experta(pregunta):
 @app.get("/agente-ia-real/{pregunta}")
 def agente_ia_real(pregunta: str):
     
-    # TU API KEY REAL DE GROQ
-    api_key = "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"  # CAMBIA POR TU KEY COMPLETA
+    import os
+# ... (tus otros imports)
+
+    GROQ_API_KEY = os.getenv("GROQ_API_KEY")
     
     url = "https://api.groq.com/openai/v1/chat/completions"
     headers = {
