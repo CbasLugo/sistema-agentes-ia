@@ -28,6 +28,11 @@ def contiene_alguna(texto, lista_palabras):
             return True
     return False
 
+
+@app.get("/")
+async def home():
+    return {"message": "Sistema de Agentes IA - API activa"}
+    
 # AGENTE 1: Experto Inmobiliario INTELIGENTE
 @app.get("/agente-inmobiliario-smart/{pregunta}")
 def agente_inmobiliario_smart(pregunta: str):
