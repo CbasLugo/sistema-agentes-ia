@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware  # ← NUEVA LÍNEA
 import unicodedata
 import requests
 import json
-
+# Fix deploy 15/06 - Nueva API key
 app = FastAPI(title="Sistema de Agentes Inteligentes")
 
 # CONFIGURACIÓN CORS - AGREGA ESTO
