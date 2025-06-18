@@ -3,279 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🤖 Sistema de Agentes IA</title>
+    <title>Sistema de Agentes IA</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 20px; 
+            background: #f0f0f0; 
         }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
+        .container { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            background: white; 
+            padding: 30px; 
+            border-radius: 10px; 
         }
-        
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            overflow: hidden;
+        input { 
+            width: 100%; 
+            padding: 15px; 
+            font-size: 16px; 
+            margin-bottom: 20px; 
+            border: 1px solid #ddd; 
+            border-radius: 5px; 
         }
-        
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px;
-            text-align: center;
+        button { 
+            background: #667eea; 
+            color: white; 
+            padding: 15px 25px; 
+            margin: 10px; 
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 16px; 
         }
-        
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+        button:hover { 
+            background: #5a6fd8; 
         }
-        
-        .header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
+        .resultado { 
+            margin-top: 20px; 
+            padding: 20px; 
+            background: #f9f9f9; 
+            border-radius: 8px; 
+            display: none; 
         }
-        
-        .main-content {
-            padding: 40px;
-        }
-        
-        .input-section {
-            margin-bottom: 30px;
-        }
-        
-        .input-container {
-            position: relative;
-            margin-bottom: 20px;
-        }
-        
-        #pregunta {
-            width: 100%;
-            padding: 20px;
-            font-size: 18px;
-            border: 3px solid #e0e0e0;
-            border-radius: 15px;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-        
-        #pregunta:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
-        }
-        
-        .agents-container {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .agent-card:nth-child(3) {
-            grid-column: 1 / -1;
-            max-width: 280px;
-            margin: 0 auto;
-        }
-        
-        .agent-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 25px;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-            border: none;
-            font-size: 16px;
-        }
-        
-        .agent-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-        }
-        
-        .agent-card .icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            display: block;
-        }
-        
-        .agent-card .title {
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin-bottom: 8px;
-        }
-        
-        .agent-card .description {
-            opacity: 0.9;
-            font-size: 0.9rem;
-        }
-        
-        .response-container {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 30px;
-            margin-top: 20px;
-            display: none;
-            border-left: 5px solid #667eea;
-        }
-        
-        .response-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .response-avatar {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin-right: 15px;
-        }
-        
-        .response-agent {
-            font-weight: bold;
-            color: #333;
-            font-size: 1.1rem;
-        }
-        
-        .response-content {
-            line-height: 1.6;
-            color: #555;
-        }
-        
-        .response-meta {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #e0e0e0;
-            font-size: 0.9rem;
-            color: #777;
-        }
-        
-        .loading {
-            display: none;
-            text-align: center;
-            padding: 20px;
-        }
-        
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #667eea;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 10px;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .error {
-            background: #ffe6e6;
-            color: #d32f2f;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 15px;
+        .loading { 
+            display: none; 
+            text-align: center; 
+            color: #667eea; 
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>🤖 Sistema de Agentes IA</h1>
-            <p>Consulta con expertos especializados en inversiones y finanzas</p>
+        <h1>🤖 Sistema de Agentes IA</h1>
+        
+        <input type="text" id="pregunta" placeholder="Escribe tu pregunta aquí...">
+        
+        <div>
+            <button onclick="consultarAgente('inmobiliario')">🏠 Inmobiliario</button>
+            <button onclick="consultarAgente('financiero')">💰 Financiero</button>
+            <button onclick="consultarAgente('general')">🧠 IA General</button>
+            <button onclick="consultarAgente('tecnologia')">🔧 Tecnología</button>
+            <button onclick="consultarAgente('negocios')">📈 Negocios</button>
         </div>
         
-        <div class="main-content">
-            <div class="input-section">
-                <div class="input-container">
-                    <input type="text" id="pregunta" placeholder="Escribe tu pregunta aquí... ej: ¿Dónde invertir en bienes raíces?" />
-                </div>
-                
-                <div class="agents-container">
-                    <button class="agent-card" onclick="consultarAgente('inmobiliario-smart')">
-                        <span class="icon">🏠</span>
-                        <div class="title">Consultor Inmobiliario</div>
-                        <div class="description">Experto en inversiones inmobiliarias y bienes raíces</div>
-                    </button>
-                    
-                    <button class="agent-card" onclick="consultarAgente('financiero-smart')">
-                        <span class="icon">💰</span>
-                        <div class="title">Asesor Financiero</div>
-                        <div class="description">Especialista en ahorro y estrategias financieras</div>
-                    </button>
-                    
-                    <button class="agent-card" onclick="consultarAgente('ia-real')">
-                        <span class="icon">🧠</span>
-                        <div class="title">IA Experta</div>
-                        <div class="description">Inteligencia artificial avanzada con conocimiento amplio</div>
-                        
-                    </button>
-                    
-                    <button class="agent-card" onclick="consultarAgente('tecnologia')">
-                        <span class="icon">🔧</span>
-                        <div class="title">Experto Tecnología</div>
-                        <div class="description">Desarrollo y soluciones tecnológicas</div>
-                    </button>
-                    
-                    <button class="agent-card" onclick="consultarAgente('negocios')">
-                        <span class="icon">📈</span>
-                        <div class="title">Consultor Negocios</div>
-                        <div class="description">Estrategias empresariales y crecimiento</div>
-                    </button>
-                    <button class="agent-card" onclick="consultarAgente('tecnologia')">
-                        <span class="icon">🔧</span>
-                        <div class="title">Experto Tecnología</div>
-                        <div class="description">Desarrollo y soluciones tecnológicas</div>
-                    </button>
-                    
-                    <button class="agent-card" onclick="consultarAgente('negocios')">
-                        <span class="icon">📈</span>
-                        <div class="title">Consultor Negocios</div>
-                        <div class="description">Estrategias empresariales y crecimiento</div>
-                    </button>
-                </div>
-            </div>
-            
-            <div class="loading" id="loading">
-                <div class="spinner"></div>
-                <p>Consultando con el agente experto...</p>
-            </div>
-            
-            <div class="response-container" id="resultado">
-                <!-- Las respuestas aparecerán aquí -->
-            </div>
+        <div class="loading" id="loading">
+            <p>⏳ Consultando...</p>
+        </div>
+        
+        <div class="resultado" id="resultado">
+            <!-- Respuesta aquí -->
         </div>
     </div>
 
     <script>
-        // JAVASCRIPT CORREGIDO - Reemplazar en tu HTML
-
-        // Permitir enviar con Enter
-        document.getElementById('pregunta').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                // Usar el último agente consultado o el financiero por defecto
-                consultarAgente('financiero-smart');
-            }
-        });
-
-        async function consultarAgente(tipo) {
+        function consultarAgente(tipo) {
+            console.log('Función llamada con tipo:', tipo);
+            
             const pregunta = document.getElementById('pregunta').value.trim();
             
             if (!pregunta) {
@@ -283,116 +86,38 @@
                 return;
             }
             
-            // MAPEAR NOMBRES DE FRONTEND A BACKEND
-            let tipoBackend = tipo;
-<<<<<<< HEAD
-            if (tipo === 'inmobiliario-smart') tipoBackend = 'inm                o';
-            if (tipo === 'financier                    poBackend = 'financiero';
-            if (tipo === 'ia-real') tipoBne                           // 'tecnolo                        ' se mantienen igual
-=======
-            if (tipo === 'inmobiliario-smart') tipoBackend = 'inmobiliario';
-            if (tipo === 'financiero-smart') tipoBackend = 'financiero';
-            if (tipo === 'ia-real') tipoBackend = 'general';
-            // 'tecnologia' y 'negocios' se mantienen igual
->>>>>>> 0540f25fee64cee1075818abd1d8faf495bed423
-            
             // Mostrar loading
             document.getElementById('loading').style.display = 'block';
             document.getElementById('resultado').style.display = 'none';
             
-            try {
-                // URL CORREGIDA - SIN EL GUIÓN
-                const response = await fetch(`https://sistema-agentes-ia.onrender.com/agente/${tipoBackend}/${encodeURIComponent(pregunta)}`);
-                const data = await response.json();
-                
-                // Ocultar loading
-                document.getElementById('loading').style.display = 'none';
-                
-                // Mostrar respuesta
-                mostrarRespuesta(data, tipo);
-                
-            } catch (error) {
-                console.error('Error:', error);
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('resultado').innerHTML = `
-                    <div class="error">
-                        <strong>Error de conexión:</strong> Hubo un problema conectando con el servidor. Intenta de nuevo.
-                    </div>
-                `;
-                document.getElementById('resultado').style.display = 'block';
-            }
+            // URL correcta
+            const url = `https://sistema-agentes-ia.onrender.com/agente/${tipo}/${encodeURIComponent(pregunta)}`;
+            console.log('URL:', url);
+            
+            fetch(url)
+                .then(response => {
+                    console.log('Response status:', response.status);
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Data received:', data);
+                    
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('resultado').innerHTML = `
+                        <h3>Respuesta de ${tipo}:</h3>
+                        <p>${data.respuesta || data.mensaje || 'Sin respuesta'}</p>
+                    `;
+                    document.getElementById('resultado').style.display = 'block';
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('resultado').innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+                    document.getElementById('resultado').style.display = 'block';
+                });
         }
-
-        function mostrarRespuesta(data, tipo) {
-            // ICONOS COMPLETOS - TODOS LOS 5 AGENTES
-            const iconos = {
-                'inmobiliario-smart': '🏠',
-                'financiero-smart': '💰',
-                'ia-real': '🧠',
-                'tecnologia': '🔧',
-                'negocios': '📈'
-            };
-            
-            // NOMBRES COMPLETOS - TODOS LOS 5 AGENTES
-            const agentNames = {
-                'inmobiliario-smart': 'Consultor Inmobiliario',
-                'financiero-smart': 'Asesor Financiero',
-                'ia-real': 'IA Experta',
-                'tecnologia': 'Experto Tecnología',
-                'negocios': 'Consultor Negocios'
-            };
-            
-            let contenido = `
-                <div class="response-header">
-                    <div class="response-avatar">${iconos[tipo] || '🤖'}</div>
-                    <div class="response-agent">${data.agente || agentNames[tipo]}</div>
-                </div>
-                
-                <div class="response-content">
-                    <p><strong>Respuesta:</strong> ${data.respuesta || data.mensaje || 'Sin respuesta disponible'}</p>
-            `;
-            
-            // Agregar información adicional si existe
-            if (data.tema_detectado) {
-                contenido += `<p><strong>Tema detectado:</strong> ${data.tema_detectado}</p>`;
-            }
-            
-            if (data.tip_extra) {
-                contenido += `<p><strong>Tip adicional:</strong> ${data.tip_extra}</p>`;
-            }
-            
-            if (data.formula) {
-                contenido += `<p><strong>Fórmula:</strong> ${data.formula}</p>`;
-            }
-            
-            if (data.sugerencias) {
-                contenido += `<p><strong>Sugerencias:</strong> ${data.sugerencias.join(', ')}</p>`;
-            }
-            
-            contenido += `</div>`;
-            
-            // Agregar metadata
-            if (data.modelo || data.estado) {
-                contenido += `
-                    <div class="response-meta">
-                        ${data.modelo ? `Modelo: ${data.modelo}` : ''}
-                        ${data.estado ? ` | Estado: ${data.estado}` : ''}
-                    </div>
-                `;
-            }
-            
-            document.getElementById('resultado').innerHTML = contenido;
-            document.getElementById('resultado').style.display = 'block';
-            
-            // Scroll suave al resultado
-            document.getElementById('resultado').scrollIntoView({ 
-                behavior: 'smooth', 
-                block: 'start' 
-            });
-        }
-<<<<<<< HEAD
+        
+        console.log('JavaScript cargado correctamente');
     </script>
 </body>
 </html>
-=======
->>>>>>> 0540f25fee64cee1075818abd1d8faf495bed423
