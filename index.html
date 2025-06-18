@@ -225,6 +225,19 @@
                         <span class="icon">🧠</span>
                         <div class="title">IA Experta</div>
                         <div class="description">Inteligencia artificial avanzada con conocimiento amplio</div>
+                        
+                    </button>
+                    
+                    <button class="agent-card" onclick="consultarAgente('tecnologia')">
+                        <span class="icon">🔧</span>
+                        <div class="title">Experto Tecnología</div>
+                        <div class="description">Desarrollo y soluciones tecnológicas</div>
+                    </button>
+                    
+                    <button class="agent-card" onclick="consultarAgente('negocios')">
+                        <span class="icon">📈</span>
+                        <div class="title">Consultor Negocios</div>
+                        <div class="description">Estrategias empresariales y crecimiento</div>
                     </button>
                     <button class="agent-card" onclick="consultarAgente('tecnologia')">
                         <span class="icon">🔧</span>
@@ -252,6 +265,8 @@
     </div>
 
     <script>
+        // JAVASCRIPT CORREGIDO - Reemplazar en tu HTML
+
         // Permitir enviar con Enter
         document.getElementById('pregunta').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
@@ -270,9 +285,16 @@
             
             // MAPEAR NOMBRES DE FRONTEND A BACKEND
             let tipoBackend = tipo;
+<<<<<<< HEAD
             if (tipo === 'inmobiliario-smart') tipoBackend = 'inm                o';
             if (tipo === 'financier                    poBackend = 'financiero';
             if (tipo === 'ia-real') tipoBne                           // 'tecnolo                        ' se mantienen igual
+=======
+            if (tipo === 'inmobiliario-smart') tipoBackend = 'inmobiliario';
+            if (tipo === 'financiero-smart') tipoBackend = 'financiero';
+            if (tipo === 'ia-real') tipoBackend = 'general';
+            // 'tecnologia' y 'negocios' se mantienen igual
+>>>>>>> 0540f25fee64cee1075818abd1d8faf495bed423
             
             // Mostrar loading
             document.getElementById('loading').style.display = 'block';
@@ -368,6 +390,9 @@
                 block: 'start' 
             });
         }
+<<<<<<< HEAD
     </script>
 </body>
 </html>
+=======
+>>>>>>> 0540f25fee64cee1075818abd1d8faf495bed423

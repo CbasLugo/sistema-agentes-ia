@@ -51,14 +51,13 @@ def consultar_agente_ia(pregunta: str, tipo_agente: str):
     
     # Configuración API
     DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY")
-    url = "https://api.deepseek.com/v1/chat/completions"
+    url = "https://api.deepseek.com/chat/completions"
     
     # Headers 
     headers = {
-        "Authorization": f"Bearer {DEEPSEEK_API_KEY}",
-        "Content-Type": "application/json"
-    }
-    
+    "Authorization": f"Bearer {DEEPSEEK_API_KEY}",
+    "Content-Type": "application/json"
+}
     # Data (solo cambiamos el prompt)
     data = {
         "model": "deepseek-reasoner",
