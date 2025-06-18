@@ -1,9 +1,9 @@
-from fastapi import FastAPI
+Sfrom fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import unicodedata
 import requests
 import json
-
+import os
 app = FastAPI(title="Sistema de Agentes Inteligentes")
 
 # CONFIGURACIÓN CORS 
