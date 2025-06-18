@@ -1,4 +1,4 @@
-Sfrom fastapi import FastAPI
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import unicodedata
 import requests
