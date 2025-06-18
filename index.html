@@ -225,6 +225,19 @@
                         <span class="icon">🧠</span>
                         <div class="title">IA Experta</div>
                         <div class="description">Inteligencia artificial avanzada con conocimiento amplio</div>
+                        
+                    </button>
+                    
+                    <button class="agent-card" onclick="consultarAgente('tecnologia')">
+                        <span class="icon">🔧</span>
+                        <div class="title">Experto Tecnología</div>
+                        <div class="description">Desarrollo y soluciones tecnológicas</div>
+                    </button>
+                    
+                    <button class="agent-card" onclick="consultarAgente('negocios')">
+                        <span class="icon">📈</span>
+                        <div class="title">Consultor Negocios</div>
+                        <div class="description">Estrategias empresariales y crecimiento</div>
                     </button>
                 </div>
             </div>
@@ -241,6 +254,8 @@
     </div>
 
     <script>
+        // JAVASCRIPT CORREGIDO - Reemplazar en tu HTML
+
         // Permitir enviar con Enter
         document.getElementById('pregunta').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
@@ -257,12 +272,20 @@
                 return;
             }
             
+            // MAPEAR NOMBRES DE FRONTEND A BACKEND
+            let tipoBackend = tipo;
+            if (tipo === 'inmobiliario-smart') tipoBackend = 'inmobiliario';
+            if (tipo === 'financiero-smart') tipoBackend = 'financiero';
+            if (tipo === 'ia-real') tipoBackend = 'general';
+            // 'tecnologia' y 'negocios' se mantienen igual
+            
             // Mostrar loading
             document.getElementById('loading').style.display = 'block';
             document.getElementById('resultado').style.display = 'none';
             
             try {
-                const response = await fetch(`https://sistema-agentes-ia.onrender.com/agente-${tipo}/${encodeURIComponent(pregunta)}`);
+                // URL CORREGIDA - SIN EL GUIÓN
+                const response = await fetch(`https://sistema-agentes-ia.onrender.com/agente/${tipoBackend}/${encodeURIComponent(pregunta)}`);
                 const data = await response.json();
                 
                 // Ocultar loading
@@ -284,16 +307,22 @@
         }
 
         function mostrarRespuesta(data, tipo) {
+            // ICONOS COMPLETOS - TODOS LOS 5 AGENTES
             const iconos = {
                 'inmobiliario-smart': '🏠',
                 'financiero-smart': '💰',
-                'ia-real': '🧠'
+                'ia-real': '🧠',
+                'tecnologia': '🔧',
+                'negocios': '📈'
             };
             
+            // NOMBRES COMPLETOS - TODOS LOS 5 AGENTES
             const agentNames = {
                 'inmobiliario-smart': 'Consultor Inmobiliario',
                 'financiero-smart': 'Asesor Financiero',
-                'ia-real': 'IA Experta'
+                'ia-real': 'IA Experta',
+                'tecnologia': 'Experto Tecnología',
+                'negocios': 'Consultor Negocios'
             };
             
             let contenido = `
@@ -344,6 +373,3 @@
                 block: 'start' 
             });
         }
-    </script>
-</body>
-</html>
